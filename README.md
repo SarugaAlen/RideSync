@@ -28,11 +28,56 @@ Glavni uporabniki sistema so:
 - Potniki, ki iščejo cenovno dostopne in priročne možnosti prevoza.
 - Administratorji, ki upravljajo sistem in spremljajo aktivnost.
 
-## Arhitektura sistema 🏗️
+## Arhitektura sistema 🏰️
+
 Sistem temelji na mikrostoritveni arhitekturi in vsebuje naslednje mikrostoritve:
 
-### 1. UserService (RestAPI)
+### 1. UserService (REST API)
+
+Skrbi za registracijo, avtentikacijo in upravljanje uporabniških podatkov.
+
+Omogoča uporabnikom urejanje osebnih podatkov in nastavitev.
 
 ### 2. RideService (gRPC)
 
+Upravlja z vožnjami in ujemanjem uporabnikov glede na njihove poti.
+
+Omogoča voznikom dodajanje novih vožnj in urejanje obstoječih.
+
+Posreduje podatke o razpoložljivih vožnjah potnikom.
+
 ### 3. ReservationService (Message Broker)
+
+Obdeluje rezervacije
+
+Uporablja sporočilni sistem
+
+Omogoča obveščanje uporabnikov o potrditvah in spremembah rezervacij.
+
+### 4. Uporabniški vmesnik
+
+Omogoča intuitivno uporabniško izkušnjo za voznike in potnike.
+
+Uporabniki lahko registrirajo in upravljajo svoj profil.
+
+Omogoča hitro iskanje in rezervacijo vožnj.
+
+Ponuja možnost komunikacije med vozniki in potniki.
+
+Zagotavlja sistem ocen in povratnih informacij za izboljšanje uporabniške izkušnje.
+
+
+## Komunikacija med storitvami 🔄
+
+Frontend komunicira z UserService (REST API) za prijavo, registracijo in upravljanje uporabniških podatkov.
+
+Frontend pošilja zahteve k RideService (gRPC) za iskanje vožnj in dodajanje novih vožnj.
+
+ReservationService uporablja Message Broker za posredovanje sporočil med storitvami, kot so potrditve rezervacij in obvestila.
+
+RideService in ReservationService komunicirata med seboj preko Message Brokerja, da usklajujeta podatke o rezervacijah in razpoložljivosti vožnj.
+
+UserService preverja identiteto uporabnikov za druge storitve.
+
+
+
