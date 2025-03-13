@@ -6,15 +6,15 @@ Storitev User Service skrbi za preverjanje pristnosti uporabnikov, registracijo 
 
 ## Funkcije
 
-Registracija in prijava uporabnika
-Upravljanje profilov
-Ponastavitev gesla in obnovitev računa
-Ustvarjanje in potrjevanje žetonov JWT
-Preverjanje identitete za druge storitve
+- Registracija in prijava uporabnika
+- Upravljanje profilov
+- Ponastavitev gesla in obnovitev računa
+- Ustvarjanje in potrjevanje žetonov JWT
+- Preverjanje identitete za druge storitve
 
 ## Tehnologije
 
-Node.js: runtime environment
-Express: framework
-JWT: avtentikacijski žetoni
-bcrypt: Bryptrypt: šifriranje gesel: šifriranje gesel
+- Node.js: runtime environment
+- Express: framework
+- JWT: avtentikacijski žetoni
+- bcrypt: Bryptrypt: šifriranje gesel: šifriranje gesel
