@@ -5,17 +5,17 @@ API Gateway služij kot enotna vstopna točka za vse zahteve clientov v arhitekt
 
 ## Funkcije
 
-Usmerjanje zahtevkov do ustreznih mikrostoritev
-Prevajanje protokolov (po potrebi iz REST v gRPC)
-Preverjanje pristnosti in avtorizacija
-omejevanje hitrosti
-beleženje zahtevkov/odgovorov
-Oblikovanje odgovorov
+- Usmerjanje zahtevkov do ustreznih mikrostoritev
+- Prevajanje protokolov (po potrebi iz REST v gRPC)
+- Preverjanje pristnosti in avtorizacija
+- Omejevanje hitrosti
+- Beleženje zahtevkov/odgovorov
+- Oblikovanje odgovorov
 
 ## Tehnologije
 
-Node.js: Runtime environment
-Express: Web framework
-JWT: Authentication mechanism
-gRPC-Node: gRPC client for Node.js
-Winston: Logging
+- Node.js: Runtime environment
+- Express: Web framework
+- JWT: Authentication mechanism
+- gRPC-Node: gRPC client for Node.js
+- Winston: Logging

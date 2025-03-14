@@ -5,13 +5,13 @@ Storitev Voženj opravlja vse dejavnosti, povezane z ustvarjanjem, iskanjem, usk
 
 ## Funkcije
 
-Ustvarjanje in upravljanje vožnje
-Iskanje in filtriranje voženj
-Ujemanje voznika in potnika
-Posodobitve stanja vožnje v realnem času
-Asinhrona komunikacija z drugimi storitvami
+- Ustvarjanje in upravljanje vožnje
+- Iskanje in filtriranje voženj
+- Ujemanje voznika in potnika
+- Posodobitve stanja vožnje v realnem času
+- Asinhrona komunikacija z drugimi storitvami
 
 ## Tehnologije
 
-Go: programski jezik
-gRPC: komunikacijski protokol
+- Go: programski jezik
+- gRPC: komunikacijski protokol

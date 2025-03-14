@@ -6,15 +6,15 @@ Ta sprednja aplikacija, ki temelji na Reactu, služi kot uporabniški vmesnik za
 
 ## Značilnosti
 
-Preverjanje pristnosti uporabnikov in upravljanje profilov
-Iskanje, ustvarjanje in upravljanje voženj
-Rezervacijski sistem za rezervacijo voženj
-Obvestila in posodobitve v realnem času
+- Preverjanje pristnosti uporabnikov in upravljanje profilov
+- Iskanje, ustvarjanje in upravljanje voženj
+- Rezervacijski sistem za rezervacijo voženj
+- Obvestila in posodobitve v realnem času
 
 ## Tehnologije
 
-React: UI library
-Redux: State management
-Axios: REST API client
-gRPC-Web: gRPC client for browser
-TailwindCSS: Styling framework
+- React: UI library
+- Redux: State management
+- Axios: REST API client
+- gRPC-Web: gRPC client for browser
+- TailwindCSS: Styling framework
