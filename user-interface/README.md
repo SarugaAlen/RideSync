@@ -1,4 +1,4 @@
-# Frontend
+# User Interface
 
 ## Pregled
 Ta sprednja aplikacija, ki temelji na Reactu, služi kot uporabniški vmesnik za platformo Ride Share. Z zalednimi storitvami komunicira prek vmesnika API Gateway z uporabo protokolov REST in gRPC.
