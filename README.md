@@ -79,7 +79,7 @@ RideService in ReservationService komunicirata med seboj preko Message Brokerja,
 
 UserService preverja identiteto uporabnikov za druge storitve.
 
-![Architecture](docs/diagram2.png)
+![Architecture](docs/arhitecture.png)
 
 
 
