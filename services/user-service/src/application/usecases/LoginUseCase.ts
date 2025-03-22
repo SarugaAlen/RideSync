@@ -21,7 +21,7 @@ export class LoginUseCase {
             throw new Error('Invalid email or password');
         }
 
-        const token = AuthService.generateToken(user.id);
+        const token = AuthService.generateToken(user.id.toString());
 
         return { user, token };
     }
