@@ -4,7 +4,7 @@ export interface IUserRepository {
     create(userData: { name: string; email: string; password: string }): Promise<User>;
     findByEmail(email: string): Promise<User | null>;
     update(user: User): Promise<User>;
-    delete(id: number): Promise<void>;
+    delete(userId: number): Promise<void>;
     findById(id: number): Promise<User | null>;
     findAll(): Promise<User[]>;
 }
