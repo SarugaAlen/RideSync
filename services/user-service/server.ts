@@ -18,7 +18,7 @@ app.use(swaggerRoutes);
 const startServer = async () => {
     await syncDatabase();
     app.listen(PORT, () => {
-        console.log(`User service running on http://localhost:${PORT}`);
+        console.log(`User service running on http://localhost:${PORT}/users`);
         console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
     });
 };
