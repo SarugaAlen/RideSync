@@ -1,7 +1,15 @@
 import express from 'express';
 import { UserController } from '../controllers/UserController';
+import { IUserRepository } from '../../domain/repository/IUserRepository';
+
 
 const router = express.Router();
+
+let userRepository: IUserRepository;
+
+export const setRepository = (repository: IUserRepository) => {
+    userRepository = repository;
+};
 
 /**
  * @swagger

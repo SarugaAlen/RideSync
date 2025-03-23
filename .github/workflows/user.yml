@@ -12,15 +12,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      sqlite:
-        image: nouchka/sqlite3:latest
-        ports:
-          - 8080:8080
-        options: >-
-          --entrypoint "sqlite3"
-          --command "CREATE DATABASE test_db;" # Command to create a test database if needed
-
     steps:
     - name: Check out code
       uses: actions/checkout@v3
@@ -33,9 +24,6 @@ jobs:
     - name: Install dependencies
       run: npm install
       working-directory: services/user-service
-
-    - name: Run database migrations
-      run: npm run migrate 
 
     - name: Run tests
       run: npm run test
