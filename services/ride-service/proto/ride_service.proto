@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package rideservice;
+
+option go_package = "github.com/alensaruga/ride-service;rideservice";
+
+
+service RideService {
+    rpc CreateRide(CreateRideRequest) returns (CreateRideResponse);
+    rpc GetRide(GetRideRequest) returns (GetRideResponse);
+    rpc ListRides(ListRidesRequest) returns (ListRidesResponse);
+}
+
+message CreateRideRequest {
+    string driver_id = 1;
+    string start_location = 2;
+    string end_location = 3;
+    repeated string passenger_ids = 4;
+    string date_time = 5;
+}
+
+message CreateRideResponse {
+    string ride_id = 1;
+}
+
+message GetRideRequest {
+    string ride_id = 1;
+}
+
+message GetRideResponse {
+    string ride_id = 1;
+    string driver_id = 2;
+    string start_location = 3;
+    string end_location = 4;
+    repeated string passenger_ids = 5;
+    string date_time = 6;
+    string status = 7;
+}
+
+message ListRidesRequest {
+    string driver_id = 1;
+}
+
+message ListRidesResponse {
+    repeated GetRideResponse rides = 1;
+}
