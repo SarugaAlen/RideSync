@@ -27,3 +27,4 @@ go.mod
 
 # SQLite database files
 *.db
+*.db-journal
