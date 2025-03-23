@@ -1,0 +1,29 @@
+# Go binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build directories
+/bin/
+/obj/
+
+# Vendor directory (if using Go modules)
+vendor/
+
+# Dependency directories
+go.sum
+go.mod
+
+# IDE files
+*.vscode/
+*.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# SQLite database files
+*.db
