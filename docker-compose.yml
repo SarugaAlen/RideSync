@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ride-service:
+    build:
+      context: ./services/ride-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./services/ride-service/rides.db:/app/rides.db 
+
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+
+networks:
+  default:
+    driver: bridge 

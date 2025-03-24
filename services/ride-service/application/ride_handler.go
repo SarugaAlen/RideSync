@@ -2,6 +2,7 @@ package application
 
 import (
 	"context"
+	"log"
 
 	rideservice "github.com/alensaruga/ride-service"
 	"github.com/alensaruga/ride-service/domain/entity"
@@ -32,13 +33,12 @@ func NewRideHandler(rideUC *RideUseCase) *RideHandler {
 // @Failure 500 {object} status.Error
 // @Router /rides [post]
 func (h *RideHandler) CreateRide(ctx context.Context, req *rideservice.CreateRideRequest) (*rideservice.CreateRideResponse, error) {
-	// Validate the request
 	if req.DriverId == "" || req.StartLocation == "" || req.EndLocation == "" || req.DateTime == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "DriverID, StartLocation, EndLocation, and DateTime are required")
 	}
 
-	// Create the ride entity
 	ride := &entity.Ride{
+		// Do not set the ID manually; let the database generate it
 		DriverID:      req.DriverId,
 		StartLocation: req.StartLocation,
 		EndLocation:   req.EndLocation,
@@ -47,11 +47,13 @@ func (h *RideHandler) CreateRide(ctx context.Context, req *rideservice.CreateRid
 		Status:        entity.StatusScheduled,
 	}
 
-	err := h.rideUseCase.CreateRide(ride)
+	err := h.rideUseCase.CreateRide(ride) // This method should handle ID generation
 	if err != nil {
+		log.Printf("Error creating ride: %v", err)
 		return nil, status.Errorf(codes.Internal, "could not create ride: %v", err)
 	}
 
+	// After creating the ride, the ID should now be populated by the database
 	return &rideservice.CreateRideResponse{RideId: ride.ID}, nil
 }
 

@@ -20,13 +20,13 @@ func NewSQLiteRideRepository(dataSourceName string) (*SQLiteRideRepository, erro
 	}
 
 	createRidesTableSQL := `CREATE TABLE IF NOT EXISTS rides (
-        id TEXT PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         driver_id TEXT,
         start_location TEXT,
         end_location TEXT,
         date_time TEXT,
         status TEXT,
-        passenger_ids TEXT  -- Store passenger IDs as a JSON string
+        passenger_ids TEXT
     );`
 
 	if _, err = db.Exec(createRidesTableSQL); err != nil {
@@ -42,10 +42,24 @@ func (repo *SQLiteRideRepository) CreateRide(ride *entity.Ride) error {
 		return err
 	}
 
-	insertRideSQL := `INSERT INTO rides (id, driver_id, start_location, end_location, date_time, status, passenger_ids) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?);`
-	_, err = repo.db.Exec(insertRideSQL, ride.ID, ride.DriverID, ride.StartLocation, ride.EndLocation, ride.DateTime, ride.Status, string(passengerIDsJSON))
-	return err
+	// Insert into the rides table without specifying the ID
+	insertRideSQL := `INSERT INTO rides (driver_id, start_location, end_location, date_time, status, passenger_ids) 
+                      VALUES (?, ?, ?, ?, ?, ?);`
+
+	result, err := repo.db.Exec(insertRideSQL, ride.DriverID, ride.StartLocation, ride.EndLocation, ride.DateTime, ride.Status, string(passengerIDsJSON))
+	if err != nil {
+		return err
+	}
+
+	// Retrieve the last inserted ID and assign it to the ride
+	rideID, err := result.LastInsertId()
+	if err != nil {
+		return err
+	}
+
+	// Convert the ID to string and set it in the ride struct
+	ride.ID = fmt.Sprintf("%d", rideID) // Ensure ID is of type string in entity.Ride
+	return nil
 }
 
 func (repo *SQLiteRideRepository) GetRide(rideID string) (*entity.Ride, error) {
