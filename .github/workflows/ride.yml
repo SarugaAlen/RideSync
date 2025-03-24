@@ -16,6 +16,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Print current directory
+      run: pwd
+
+    - name: List files
+      run: ls -la
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
@@ -25,4 +31,4 @@ jobs:
       run: go mod download
 
     - name: Run tests
-      run: go test -v ./... 
+      run: go test -v ./...
