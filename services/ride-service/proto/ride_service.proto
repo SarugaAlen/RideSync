@@ -4,11 +4,16 @@ package rideservice;
 
 option go_package = "github.com/alensaruga/ride-service;rideservice";
 
-
 service RideService {
     rpc CreateRide(CreateRideRequest) returns (CreateRideResponse);
     rpc GetRide(GetRideRequest) returns (GetRideResponse);
     rpc ListRides(ListRidesRequest) returns (ListRidesResponse);
+    rpc UpdateRide(UpdateRideRequest) returns (UpdateRideResponse);
+    rpc DeleteRide(DeleteRideRequest) returns (DeleteRideResponse);
+    rpc FindRidesByLocation(FindRidesByLocationRequest) returns (FindRidesByLocationResponse);
+    rpc JoinRide(JoinRideRequest) returns (JoinRideResponse);
+    rpc LeaveRide(LeaveRideRequest) returns (LeaveRideResponse);
+    rpc ChangeRideStatus(ChangeRideStatusRequest) returns (ChangeRideStatusResponse);
 }
 
 message CreateRideRequest {
@@ -43,4 +48,62 @@ message ListRidesRequest {
 
 message ListRidesResponse {
     repeated GetRideResponse rides = 1;
+}
+
+message UpdateRideRequest {
+    string ride_id = 1;
+    string driver_id = 2;
+    string start_location = 3;
+    string end_location = 4;
+    repeated string passenger_ids = 5;
+    string date_time = 6;
+    string status = 7;
+}
+
+message UpdateRideResponse {
+    bool success = 1;
+}
+
+message DeleteRideRequest {
+    string ride_id = 1;
+}
+
+message DeleteRideResponse {
+    bool success = 1;
+}
+
+message FindRidesByLocationRequest {
+    string start_location = 1;
+    string end_location = 2;
+}
+
+message FindRidesByLocationResponse {
+    repeated GetRideResponse rides = 1;
+}
+
+message JoinRideRequest {
+    string ride_id = 1;
+    string passenger_id = 2;
+}
+
+message JoinRideResponse {
+    bool success = 1;
+}
+
+message LeaveRideRequest {
+    string ride_id = 1;
+    string passenger_id = 2;
+}
+
+message LeaveRideResponse {
+    bool success = 1;
+}
+
+message ChangeRideStatusRequest {
+    string ride_id = 1;
+    string status = 2;
+}
+
+message ChangeRideStatusResponse {
+    bool success = 1;
 }

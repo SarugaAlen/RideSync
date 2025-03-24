@@ -1,5 +1,4 @@
 import { Sequelize } from "sequelize";
-import User from "../../domain/models/User";
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
