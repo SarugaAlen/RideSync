@@ -12,9 +12,6 @@
 # Vendor directory (if using Go modules)
 vendor/
 
-# Dependency directories
-go.sum
-go.mod
 
 # IDE files
 *.vscode/
