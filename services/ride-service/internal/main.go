@@ -20,7 +20,7 @@ func main() {
 
 	rideUseCase := application.NewRideUseCase(sqliteRepo)
 
-	lis, err := net.Listen("tcp", ":50051")
+	lis, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -31,7 +31,7 @@ func main() {
 
 	reflection.Register(grpcServer)
 
-	log.Printf("Server is running on port :50051")
+	log.Printf("Server is running on port :8080")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

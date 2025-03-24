@@ -1,24 +1,18 @@
-FROM golang:1.24 AS builder
+FROM golang:1.24-alpine AS builder
+
+RUN apk add --no-cache gcc musl-dev
 
 WORKDIR /app
-
-COPY go.mod go.sum ./
-
-RUN go mod download
-
 COPY . .
 
-RUN GOOS=linux GOARCH=amd64 go build -o ride-service ./internal/main.go  # Update the path if necessary
+RUN go build -o ride-service ./internal/main.go
 
 FROM alpine:latest
-
-RUN apk add --no-cache ca-certificates
-
 WORKDIR /app
 
 COPY --from=builder /app/ride-service .
 
-RUN chmod +x ride-service
+COPY rides.db .
 
 EXPOSE 8080
 
