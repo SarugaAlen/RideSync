@@ -1,0 +1,118 @@
+// import request from 'supertest';
+// import express from 'express';
+// import userRouter from '../src/presentation/routes/userRoutes';
+// import { AppDataSource } from './data-source';
+// import User from '../src/domain/models/User';
+
+// const app = express();
+// app.use(express.json());
+// app.use('/users', userRouter);
+
+// beforeAll(async () => {
+//     await AppDataSource.initialize();
+// });
+
+// beforeEach(async () => {
+//     await AppDataSource.synchronize(true);
+// });
+
+// afterAll(async () => {
+//     await AppDataSource.destroy();
+// });
+
+// describe('User API Endpoints', () => {
+//     let createdUserId: number = 1;
+
+//     it('should register a new user', async () => {
+//         const userData = {
+//             name: 'John Doe',
+//             email: 'john.doe@example.com',
+//             password: 'securepassword',
+//         };
+
+//         const response = await request(app)
+//             .post('/users/register')
+//             .send(userData)
+//             .expect(201);
+
+//         expect(response.body).toHaveProperty('id');
+//         expect(response.body.name).toBe(userData.name);
+//         expect(response.body.email).toBe(userData.email);
+        
+//         createdUserId = response.body.id; 
+//     });
+
+//     it('should get all users', async () => {
+//         const user = AppDataSource.getRepository(User).create({
+//             name: 'John Doe',
+//             email: 'john.doe@example.com',
+//             password: 'securepassword',
+//         });
+//         await AppDataSource.getRepository(User).save(user);
+
+//         const response = await request(app)
+//             .get('/users')
+//             .expect(200);
+
+//         expect(Array.isArray(response.body)).toBe(true);
+//         expect(response.body.length).toBe(1);
+//     });
+
+//     it('should get user by ID', async () => {
+//         const user = AppDataSource.getRepository(User).create({
+//             name: 'John Doe',
+//             email: 'john.doe@example.com',
+//             password: 'securepassword',
+//         });
+//         const savedUser = await AppDataSource.getRepository(User).save(user);
+
+//         const response = await request(app)
+//             .get(`/users/${savedUser.id}`)
+//             .expect(200);
+
+//         expect(response.body).toHaveProperty('id', savedUser.id);
+//         expect(response.body).toHaveProperty('name', user.name);
+//         expect(response.body).toHaveProperty('email', user.email);
+//     });
+
+//     it('should update a user', async () => {
+//         const user = AppDataSource.getRepository(User).create({
+//             name: 'John Doe',
+//             email: 'john.doe@example.com',
+//             password: 'securepassword',
+//         });
+//         const savedUser = await AppDataSource.getRepository(User).save(user);
+
+//         const updatedUserData = {
+//             name: 'John Updated',
+//             email: 'john.updated@example.com',
+//             password: 'newpassword',
+//         };
+
+//         const response = await request(app)
+//             .put(`/users/${savedUser.id}`)
+//             .send(updatedUserData)
+//             .expect(200);
+
+//         expect(response.body).toHaveProperty('id', savedUser.id);
+//         expect(response.body.name).toBe(updatedUserData.name);
+//         expect(response.body.email).toBe(updatedUserData.email);
+//     });
+
+//     it('should delete a user', async () => {
+//         const user = AppDataSource.getRepository(User).create({
+//             name: 'John Doe',
+//             email: 'john.doe@example.com',
+//             password: 'securepassword',
+//         });
+//         const savedUser = await AppDataSource.getRepository(User).save(user);
+
+//         await request(app)
+//             .delete(`/users/${savedUser.id}`)
+//             .expect(204);
+
+//         await request(app)
+//             .get(`/users/${savedUser.id}`)
+//             .expect(404);
+//     });
+// });
