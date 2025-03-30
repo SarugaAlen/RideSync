@@ -21,7 +21,3 @@ vendor/
 
 # Logs
 *.log
-
-# SQLite database files
-*.db
-*.db-journal

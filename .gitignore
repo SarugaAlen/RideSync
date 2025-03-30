@@ -40,9 +40,3 @@ coverage/
 # Miscellaneous
 *.bak
 *.orig
-
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-*.db-journal
