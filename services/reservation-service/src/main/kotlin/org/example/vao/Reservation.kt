@@ -1,15 +1,14 @@
 package org.example.vao
 
-class Reservation {
-    var id: Int? = null
+import io.quarkus.hibernate.reactive.panache.PanacheEntity
+import jakarta.persistence.*
+
+@Entity
+@Table(name = "reservations")
+class Reservation : PanacheEntity() {
     var userId: Int? = null
     var rideId: Int? = null
+
+    @Enumerated(EnumType.STRING)
     var status: ReservationStatus? = null
-
-}
-
-enum class ReservationStatus {
-    PENDING,
-    CONFIRMED,
-    CANCELED
 }
