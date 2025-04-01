@@ -2,7 +2,6 @@ FROM eclipse-temurin:17-jdk-alpine AS build
 
 WORKDIR /work/
 
-# Copy Gradle wrapper and configuration files first to leverage caching
 COPY gradlew .
 COPY gradle/ gradle/
 COPY build.gradle.kts .
