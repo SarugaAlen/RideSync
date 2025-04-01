@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    volumes:
-      - ./services/ride-service/rides.db:/app/rides.db 
 
   user-service:
     build:
