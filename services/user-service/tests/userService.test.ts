@@ -27,7 +27,7 @@ describe('User Service', () => {
 
 
     it('should create a new user', async () => {
-        const userData = { name: 'Jane Doe', email: 'jane@example.com', password: 'password123' };
+        const userData = { name: 'Jane Doe', email: 'jane@example.com', password: 'password123', role: 'user' };
         mockUserRepository.findByEmail.mockResolvedValueOnce(null); 
         mockUserRepository.create.mockResolvedValueOnce(new User());
 
@@ -42,7 +42,7 @@ describe('User Service', () => {
     });
 
     it('should throw an error if user already exists', async () => {
-        const userData = { name: 'Jane Doe', email: 'jane@example.com', password: 'password123' };
+        const userData = { name: 'Jane Doe', email: 'jane@example.com', password: 'password123', role: 'user' };
         mockUserRepository.findByEmail.mockResolvedValueOnce(new User()); 
 
         await expect(createUserUseCase.execute(userData)).rejects.toThrow('User already exists');
@@ -83,8 +83,9 @@ describe('User Service', () => {
         existingUser.name = 'Old Name';
         existingUser.email = 'old@example.com';
         existingUser.password = 'oldpassword';
+        existingUser.role = 'user';
     
-        const updatedData = { name: 'Jane Smith', email: 'jane.smith@example.com', password: 'newpassword123' };
+        const updatedData = { name: 'Jane Smith', email: 'jane.smith@example.com', password: 'newpassword123', role: 'admin' };
     
         const updatedUser = Object.assign(new User(), existingUser, updatedData);
     
