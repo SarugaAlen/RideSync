@@ -1,0 +1,47 @@
+name: Reservation CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Print current directory
+      run: pwd
+
+    - name: List files
+      run: ls -la
+
+    - name: Change directory to reservation-service
+      run: cd services/reservation-service
+
+    - name: Install dependencies and build
+      working-directory: services/reservation-service
+      run: ./gradlew build --no-daemon
+
+    - name: Run tests
+      working-directory: services/reservation-service
+      run: ./gradlew test --no-daemon --tests "org.example.ReservationResourceTest"
+
+    - name: Publish Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: services/reservation-service/build/test-results/test
