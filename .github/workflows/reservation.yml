@@ -28,6 +28,10 @@ jobs:
     - name: List files
       run: ls -la
 
+    - name: Change permissions for gradlew
+      working-directory: services/reservation-service
+      run: chmod +x gradlew
+
     - name: Install dependencies and build
       working-directory: services/reservation-service
       run: ./gradlew build --no-daemon
