@@ -25,7 +25,7 @@ export class UserService {
         this.findUserByEmailUseCase = new FindUserByEmailUseCase(userRepository);
     }
 
-    async registerUser(data: { name: string; email: string; password: string }) {
+    async registerUser(data: { name: string; email: string; password: string; role: string }) {
         return this.createUserUseCase.execute(data);
     }
 

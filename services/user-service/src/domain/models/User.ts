@@ -6,6 +6,7 @@ interface UserAttributes {
     name: string;
     email: string;
     password: string;
+    role: string;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> { }
@@ -15,6 +16,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public name!: string;
     public email!: string;
     public password!: string;
+    public role!: string;
 }
 
 User.init({
@@ -25,7 +27,12 @@ User.init({
     },
     name: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
-    password: { type: DataTypes.STRING, allowNull: false }
+    password: { type: DataTypes.STRING, allowNull: false },
+    role: { 
+        type: DataTypes.STRING, 
+        allowNull: false, 
+        defaultValue: 'user'
+    }
 }, {
     sequelize,
     modelName: 'User',

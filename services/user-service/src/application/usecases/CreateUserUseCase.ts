@@ -11,7 +11,7 @@ export class CreateUserUseCase {
         this.saltRounds = saltRounds;
     }
 
-    async execute(data: { name: string; email: string; password: string }): Promise<User> {
+    async execute(data: { name: string; email: string; password: string; role: string; }): Promise<User> {
         const existingUser = await this.userRepository.findByEmail(data.email);
         if (existingUser) {
             throw new Error('User already exists');

@@ -2,7 +2,7 @@ import { IUserRepository } from '../../domain/repository/IUserRepository';
 import User from '../../domain/models/User';
 
 class UserRepository implements IUserRepository {
-    async create(userData: { name: string; email: string; password: string }) {
+    async create(userData: { name: string; email: string; password: string, role: string }) {
         return await User.create(userData);
     }
 
