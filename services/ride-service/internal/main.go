@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"sync"
 
 	pb "github.com/alensaruga/ride-service"
 	"github.com/alensaruga/ride-service/application"
@@ -12,6 +13,8 @@ import (
 )
 
 func main() {
+	var wg sync.WaitGroup
+
 	sqliteRepo, err := infrastructure.NewSQLiteRideRepository("rides.db")
 	if err != nil {
 		log.Fatalf("failed to initialize SQLite repository: %v", err)
@@ -31,8 +34,13 @@ func main() {
 
 	reflection.Register(grpcServer)
 
-	log.Printf("Server is running on port :8080")
+	wg.Add(1)
+	go infrastructure.StartConsumer(&wg)
+
+	log.Printf("gRPC Server is running on port :8080")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+
+	wg.Wait()
 }

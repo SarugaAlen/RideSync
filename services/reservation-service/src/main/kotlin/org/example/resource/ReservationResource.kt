@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.Response
 import org.example.dao.ReservationRepository
 import org.example.vao.Reservation
 import org.example.vao.ReservationStatus
+import org.example.messaging.RideReservationProducer
 import org.jboss.logging.Logger
 
 @Path("/reservations")
@@ -19,6 +20,9 @@ class ReservationResource {
 
     @Inject
     lateinit var reservationRepository: ReservationRepository
+
+    @Inject
+    lateinit var rideReservationProducer: RideReservationProducer
 
     @GET
     fun getAllReservations(): Uni<Response> {
@@ -79,7 +83,6 @@ class ReservationResource {
 
     @POST
     fun createReservation(reservation: Reservation): Uni<Response> {
-        // Ensure status is set if not provided
         if (reservation.status == null) {
             reservation.status = ReservationStatus.PENDING
         }
@@ -88,6 +91,9 @@ class ReservationResource {
         return reservationRepository.createReservation(reservation)
             .onItem().transform { created ->
                 logger.info("Created reservation: ${created.id}")
+
+                rideReservationProducer.sendReservationMessage(created.id.toString())
+
                 Response.status(Response.Status.CREATED)
                     .entity(created)
                     .build()

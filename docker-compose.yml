@@ -7,6 +7,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    depends_on:
+      activemq:
+        condition: service_healthy
+    restart: on-failure
 
   user-service:
     build:
@@ -14,6 +18,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    restart: on-failure
 
   reservation-service:
     build:
@@ -26,9 +31,13 @@ services:
       QUARKUS_DATASOURCE_REACTIVE_URL: "postgresql://postgres:5432/reservations"
       QUARKUS_DATASOURCE_USERNAME: "postgres"
       QUARKUS_DATASOURCE_PASSWORD: "alen123"
+      QUARKUS_ARTEMIS_URL: "tcp://activemq:61616"
     depends_on:
+      activemq:
+        condition: service_healthy
       postgres:
         condition: service_healthy
+    restart: on-failure
 
   postgres:
     image: postgres:latest
@@ -47,6 +56,23 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  activemq:
+    image: apache/activemq-artemis
+    container_name: activemq_artemis
+    restart: always
+    ports:
+      - "61616:61616"  # for JMS
+      - "5672:5672"    # for AMQP
+      - "8161:8161"    # for Web Console
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: artemis
+      ACTIVEMQ_ADMIN_PASSWORD: artemis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8161"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      
 volumes:
   postgres_data:
 
