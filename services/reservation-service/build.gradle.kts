@@ -15,6 +15,7 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
+
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
 
     // Quarkus and Kotlin
@@ -33,7 +34,10 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     implementation("org.jboss.slf4j:slf4j-jboss-logmanager:2.0.1.Final")
 
-
+    // Artemis (JMS)
+    implementation("io.quarkiverse.artemis:quarkus-artemis-core:3.8.0")
+    implementation("io.quarkus:quarkus-smallrye-openapi")
+    implementation("io.quarkiverse.artemis:quarkus-artemis-jms:3.8.0")
 
     // Testing
     testImplementation("io.quarkus:quarkus-junit5")
@@ -44,6 +48,9 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.24.2") // Fluent assertions
     testImplementation("org.testcontainers:testcontainers:1.19.3") // TestContainers
     testImplementation("org.testcontainers:postgresql:1.19.3") // PostgreSQL TestContainer
+
+    implementation("org.apache.logging.log4j:log4j-core:2.20.0") // Update to a stable version
+    implementation("org.apache.logging.log4j:log4j-api:2.20.0") // Update to a stable version
 }
 
 group = "org.example"
