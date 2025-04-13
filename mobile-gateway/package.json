@@ -1,0 +1,33 @@
+{
+  "name": "mobile-gateway",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "npm run build && npm run start",
+    "dev:watch": "tsc -w & nodemon dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.2.5",
+    "@grpc/grpc-js": "^1.13.3",
+    "@grpc/proto-loader": "^0.7.13",
+    "@koa/cors": "^5.0.0",
+    "@types/koa": "^2.15.0",
+    "koa": "^2.16.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^13.0.1",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-router": "^7.4.8",
+    "@types/node-fetch": "^2.6.12",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.8.3"
+  }
+}
