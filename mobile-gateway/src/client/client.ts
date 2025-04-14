@@ -11,12 +11,10 @@ const packageDefinition = loadSync(PROTO_PATH, {
   oneofs: true,
 });
 
-// Load the gRPC object
 const grpcObject = loadPackageDefinition(packageDefinition) as any;
 
-// Create and export the RideService client
 const RideServiceClient = new grpcObject.rideservice.RideService(
-  'localhost:50051',
+  'localhost:8080',
   credentials.createInsecure()
 );
 
