@@ -1,5 +1,7 @@
 import Router from 'koa-router';
 import axios from 'axios';
+import RideServiceClient from '../client/client';
+import grpcCall from '../utils/grpCall';
 
 const router = new Router({
   prefix: '/users', 
@@ -86,5 +88,31 @@ router.delete('/:id', async (ctx) => {
     }
   }
 });
+
+router.get('/:id/dashboard', async (ctx) => {
+  const userId = ctx.params.id;
+
+  try {
+    const [userRes, ridesRes, reservationsRes] = await Promise.all([
+      axios.get(`http://localhost:5000/users/${userId}`),
+      grpcCall(RideServiceClient.ListRides.bind(RideServiceClient), { user_id: userId }),
+      axios.get(`http://localhost:4000/reservations/user/${userId}`),
+    ]);
+
+    ctx.status = 200;
+    ctx.body = {
+      user: userRes.data,
+      rides: ridesRes,
+      reservations: reservationsRes.data,
+    };
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = {
+      message: 'Failed to fetch user dashboard',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    };
+  }
+});
+
 
 export default router;
