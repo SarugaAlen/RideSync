@@ -1,17 +1,12 @@
 import Router from 'koa-router';
-import RideServiceClient from '../client/client'; // Import the gRPC client
+import RideServiceClient from '../client/client';
+import axios from 'axios';
+import grpcCall from '../utils/grpCall';
 
 const router = new Router({
   prefix: '/rides', 
 });
 
-const grpcCall = (method: Function, request: any) =>
-  new Promise((resolve, reject) => {
-    method(request, (err: any, response: any) => {
-      if (err) reject(err);
-      else resolve(response);
-    });
-  });
 
 router.post('/', async (ctx) => {
   try {
@@ -93,6 +88,28 @@ router.get('/location', async (ctx) => {
     ctx.body = { 
       message: 'Internal Server Error', 
       error: error instanceof Error ? error.message : 'Unknown error' 
+    };
+  }
+});
+
+router.get('/:id/details', async (ctx) => {
+  try {
+    const ride = await grpcCall(RideServiceClient.GetRide.bind(RideServiceClient), {
+      ride_id: ctx.params.id,
+    });
+
+    const reservationRes = await axios.get(`http://localhost:4000/reservations/ride/${ctx.params.id}`);
+
+    ctx.status = 200;
+    ctx.body = {
+      ride,
+      reservation: reservationRes.data,
+    };
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = {
+      message: 'Failed to fetch ride details',
+      error: error instanceof Error ? error.message: 'Unknown error',
     };
   }
 });
