@@ -31,6 +31,34 @@ export class ReservationController {
     return this.gatewayService.createReservation(body);
   }
 
+  @Post('/full')
+async createFullReservation(@Body() body: any) {
+  const { userId, rideId, status } = body;
+
+  if (!userId || !rideId || !status) {
+    throw new Error('userId, rideId, and status are required');
+  }
+
+  const user = await this.gatewayService.findUserById(userId);
+  if (!user) {
+    throw new Error(`User with ID ${userId} not found`);
+  }
+
+  const ride = await this.gatewayService.getRide(rideId).toPromise();
+  if (!ride) {
+    throw new Error(`Ride with ID ${rideId} not found`);
+  }
+
+  const reservation = await this.gatewayService.createReservation({ userId, rideId, status });
+
+  return {
+    message: 'Reservation created successfully',
+    reservation,
+    user,
+    ride,
+  };
+}
+
   @Put('/:id')
   updateReservation(@Param('id') id: number, @Body() body: any) {
     return this.gatewayService.updateReservation(id, body);
