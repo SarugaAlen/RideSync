@@ -16,11 +16,15 @@ app.use('/users', userRoutes);
 app.use(swaggerRoutes);
 
 const startServer = async () => {
-    await syncDatabase();
-    app.listen(PORT, () => {
-        console.log(`User service running on http://localhost:${PORT}/users`);
-        console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
-    });
+    try {
+        await syncDatabase();
+        app.listen(PORT, () => {
+            console.log(`User service running on http://localhost:${PORT}/users`);
+            console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
+        });
+    } catch (error) {
+        console.error("Error syncing the database:", error);
+    }
 };
 
 startServer();
