@@ -19,6 +19,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "pino": "^9.6.0",
+    "pino-http": "^10.4.0",
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.6",
     "sqlite3": "^5.1.7",
