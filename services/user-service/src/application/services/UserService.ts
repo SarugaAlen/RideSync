@@ -5,9 +5,11 @@ import { DeleteUserUseCase } from '../usecases/DeleteUserUseCase';
 import { FindUserByIdUseCase } from '../usecases/FindUserByIdUseCase';
 import { FindAllUsersUseCase } from '../usecases/FindAllUsersUseCase';
 import { FindUserByEmailUseCase } from '../usecases/FindUserByEmailUseCase';
+import { LoginUseCase } from '../usecases/LoginUseCase';
 
 
 export class UserService {
+    private loginUseCase: LoginUseCase;
     private createUserUseCase: CreateUserUseCase;
     private updateUserUseCase: UpdateUserUseCase;
     private deleteUserUseCase: DeleteUserUseCase;
@@ -17,12 +19,17 @@ export class UserService {
 
 
     constructor(userRepository: IUserRepository) {
+        this.loginUseCase = new LoginUseCase(userRepository);
         this.createUserUseCase = new CreateUserUseCase(userRepository);
         this.updateUserUseCase = new UpdateUserUseCase(userRepository);
         this.deleteUserUseCase = new DeleteUserUseCase(userRepository);
         this.findUserByIdUseCase = new FindUserByIdUseCase(userRepository);
         this.findAllUsersUseCase = new FindAllUsersUseCase(userRepository);
         this.findUserByEmailUseCase = new FindUserByEmailUseCase(userRepository);
+    }
+
+    async loginUser(email: string, password: string) {
+        return this.loginUseCase.execute(email, password);
     }
 
     async registerUser(data: { name: string; email: string; password: string; role: string }) {
